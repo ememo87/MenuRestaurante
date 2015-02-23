@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/link_text_material_light">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/text_tittle_category"
+                    android:textColor="@color/bright_foreground_material_dark"
+                    android:textSize="@dimen/abc_text_size_title_material" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="100dip"
+                    android:id="@+id/img_items"
+                    android:src="@drawable/imaginamos"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginRight="5dip"
+                    android:layout_marginTop="5dip" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="50dip"
+            android:layout_marginRight="50dip"
+            android:background="@color/bright_foreground_material_dark"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/text_description"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:textColor="@color/bright_foreground_material_dark"
+                android:textSize="@dimen/abc_text_size_title_material"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dip">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="left"
+                android:gravity="left">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dip"
+                    android:layout_marginLeft="5dip"
+                    android:layout_marginBottom="5dip"
+                    android:id="@+id/img_left"
+                    android:src="@drawable/imaginamos" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:layout_gravity="right">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="70dip"
+                    android:id="@+id/img_right"
+                    android:layout_marginRight="5dip"
+                    android:layout_marginBottom="5dip"
+                    android:src="@drawable/imaginamos" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dip"
+            android:background="@color/bright_foreground_material_dark">
+
+        </View>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.co.menu.restaurante" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".app.Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activity.Splash"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--android:screenOrientation="sensorLandscape"-->
+        <activity
+            android:name=".activity.ListCategoriesActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_list_menu"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".activity.DescriptionActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/title_activity_description">
+        </activity>
+    </application>
+
+</manifest>

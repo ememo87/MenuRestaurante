@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/link_text_material_light">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/img_category"
+            android:src="@drawable/imaginamos"
+            android:layout_margin="20dip"
+            android:layout_gravity="center_horizontal|top" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu Restaurante"
+            android:textSize="25dip"
+            android:textColor="@color/bright_foreground_material_dark"
+            android:gravity="center"
+            android:paddingLeft="3dip"
+            android:paddingRight="3dip"
+            android:background="@color/link_text_material_light"
+            android:id="@+id/text_category"
+            android:layout_gravity="center_horizontal|bottom" />
+    </FrameLayout>
+</LinearLayout>

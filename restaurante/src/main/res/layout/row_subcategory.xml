@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_subcategory"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@drawable/image_button_click">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="prueba"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="3dip"
+            android:visibility="gone"
+            android:id="@+id/text_idSubcategory" />
+
+        <ImageView
+            android:layout_width="70dip"
+            android:layout_height="70dip"
+            android:id="@+id/imageView2"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="3dip"
+            android:layout_marginBottom="3dip"
+            android:layout_marginTop="3dip"
+            android:src="@drawable/archies" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:textColor="@color/abc_input_method_navigation_guard"
+            android:textSize="20dip"
+            android:layout_margin="20dip"
+            android:id="@+id/text_subcategory" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:src="@drawable/ic_maps_local_restaurant" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
