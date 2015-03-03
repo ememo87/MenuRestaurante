@@ -6,6 +6,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/abc_popup_background_mtrl_mult">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/link_text_material_light">
 
         <LinearLayout
@@ -114,12 +120,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="4dip"
-            android:background="@color/bright_foreground_material_dark">
-
-        </View>
     </LinearLayout>
 
+    </LinearLayout>
 </LinearLayout>

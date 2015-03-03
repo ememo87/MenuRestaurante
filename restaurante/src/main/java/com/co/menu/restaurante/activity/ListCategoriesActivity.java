@@ -2,10 +2,13 @@ package com.co.menu.restaurante.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,6 +65,9 @@ public class ListCategoriesActivity extends ActionBarActivity implements Categor
     private DaoMaster.DevOpenHelper devOpenHelper;
     private static SQLiteDatabase db;
 
+    private boolean isTablet=false;
+    Application globalVariableTablet;
+
     private ActionBar actionBar;
 
     private List<Category> categoryList;
@@ -76,8 +82,22 @@ public class ListCategoriesActivity extends ActionBarActivity implements Categor
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_menu);
+
         context = getApplicationContext();
+
+        globalVariableTablet = (Application) getApplicationContext();
+        isTablet = isTabletDevice(getApplicationContext());
+        globalVariableTablet.setIsTablet(isTablet);
+
+        if(isTablet==false){
+            //sensorLandscape
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            setContentView(R.layout.activity_list_menu);
+        }else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            setContentView(R.layout.activity_list_menu_tablet);
+        }
+
         listCategory = (ListView) findViewById(R.id.list_Category);
 
         actionBar = getSupportActionBar();
@@ -279,5 +299,28 @@ public class ListCategoriesActivity extends ActionBarActivity implements Categor
     @Override
     public void errorDetails(String error) {
         Toast.makeText(context,error,Toast.LENGTH_LONG).show();
+    }
+
+    public boolean isTabletDevice(Context activityContext) {
+        boolean device_large = ((activityContext.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_LARGE);
+
+        if (device_large) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            //         Activity activity = (Activity) context;
+            this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_TV
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+                //    AppInstance.getLogger().logD("DeviceHelper","IsTabletDevice-True");
+                return true;
+            }
+        }
+        //  AppInstance.getLogger().logD("DeviceHelper","IsTabletDevice-False");
+        return false;
     }
 }

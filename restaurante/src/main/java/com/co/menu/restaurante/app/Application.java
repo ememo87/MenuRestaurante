@@ -1,6 +1,9 @@
 package com.co.menu.restaurante.app;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.util.DisplayMetrics;
 
 import com.co.menu.restaurante.tools.Constants;
 
@@ -17,7 +20,7 @@ public class Application extends android.app.Application {
     private static RestAdapter restAdapterMenu;
     private static RestAdapter restAdapterCategoryDetails;
     private static RestAdapter restAdapterCategories;
-
+    private Boolean isTablet;
     private static DaoMaster daoMaster=null;
     private static DaoSession daoSession=null;
 
@@ -97,4 +100,11 @@ public class Application extends android.app.Application {
         return daoSession;
     }
 
+    public Boolean getIsTablet() {
+        return isTablet;
+    }
+
+    public void setIsTablet(Boolean isTablet) {
+        this.isTablet = isTablet;
+    }
 }

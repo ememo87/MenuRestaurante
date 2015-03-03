@@ -13,6 +13,8 @@ import com.co.menu.restaurante.models.DetailsItem;
 import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 
 import java.util.List;
+
+import com.squareup.picasso.Picasso;
 /**
  * Created by esandoval on 22/02/15.
  */
@@ -71,6 +73,10 @@ public class AdapterDetails extends ArrayAdapter{
         DetailsItem details = objDetails.get(position);
         holder.mTextTittle.setText(details.getName_details());
         holder.mTextDescription.setText(details.getDescription());
+
+        Picasso.with(context)
+                .load(details.getUrlImage_items())
+                .into(holder.mImgItems);
 
         if (details.getUrlImage_items() != null) {
             UrlImageViewHelper.setUrlDrawable(holder.mImgItems, details.getUrlImage_items());

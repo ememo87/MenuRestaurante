@@ -1,12 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context="com.co.menu.restaurante.activity.ListCategoriesActivity">
+
+
+<ListView
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.co.menu.restaurante.activity.ListCategoriesActivity">
-
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/list_Category" />
+    android:background="@drawable/abc_popup_background_mtrl_mult"
+    android:id="@+id/list_Category" />
 </LinearLayout>

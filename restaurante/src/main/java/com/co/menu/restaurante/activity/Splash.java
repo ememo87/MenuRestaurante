@@ -1,14 +1,26 @@
 package com.co.menu.restaurante.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.ListView;
 
 import com.co.menu.restaurante.R;
+import com.co.menu.restaurante.app.Application;
 import com.co.menu.restaurante.bl.MenuBL;
 import com.co.menu.restaurante.models.MenuData;
 import com.co.menu.restaurante.models.MenuItems;
@@ -19,14 +31,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Splash extends ActionBarActivity implements MenuBL.menuBlListener{
+public class Splash extends Activity implements MenuBL.menuBlListener{
 
     private MenuBL menuBL;
+
+    private boolean isTablet=false;
+    Application globalVariableTablet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        globalVariableTablet = (Application) getApplicationContext();
+        isTablet = isTabletDevice(getApplicationContext());
+        globalVariableTablet.setIsTablet(isTablet);
+
+        if(isTablet==false){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+        }else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+        }
 
         menuBL = new MenuBL();
         menuBL.setListener(Splash.this);
@@ -132,6 +157,29 @@ public class Splash extends ActionBarActivity implements MenuBL.menuBlListener{
                         ((long) 1223),
                         requestsList
                 )));
+    }
+
+    public boolean isTabletDevice(Context activityContext) {
+        boolean device_large = ((activityContext.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_LARGE);
+
+        if (device_large) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            //         Activity activity = (Activity) context;
+            this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_TV
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+                //    AppInstance.getLogger().logD("DeviceHelper","IsTabletDevice-True");
+                return true;
+            }
+        }
+        //  AppInstance.getLogger().logD("DeviceHelper","IsTabletDevice-False");
+        return false;
     }
 
 }

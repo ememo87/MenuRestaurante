@@ -3,14 +3,18 @@ package com.co.menu.restaurante.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +35,10 @@ import dao.com.co.greendao.Details;
 public class DescriptionActivity extends ActionBarActivity {
 
     private ListView mListDescription;
+    private GridView mListDescriptionGrid;
+
+    Application globalVariableTablet;
+
     private String id_subCategory;
     private String name_subCategory;
     private List<Details> detailsList;
@@ -39,6 +47,8 @@ public class DescriptionActivity extends ActionBarActivity {
     private AdapterDetails adapterDetails;
 
     private ActionBar actionBar;
+
+    private boolean isTablet=false;
 
     Context context ;
     DBHelper dbHelper;
@@ -50,8 +60,38 @@ public class DescriptionActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+
         context = getApplicationContext();
+
+        globalVariableTablet = (Application) getApplicationContext();
+        isTablet = isTabletDevice(getApplicationContext());
+        globalVariableTablet.setIsTablet(isTablet);
+
+        if(isTablet==false){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+            setContentView(R.layout.activity_details);
+            mListDescription = (ListView) findViewById(R.id.listDescription);
+
+            mListDescription.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    dialogAlertDelete( parent, position);
+                }
+            });
+
+        }else{
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+            setContentView(R.layout.activity_details_tablet);
+            mListDescriptionGrid = (GridView) findViewById(R.id.grid_list);
+            mListDescriptionGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    dialogAlertDelete( parent, position);
+                }
+            });
+
+        }
+
 
         actionBar = getSupportActionBar();
 
@@ -67,15 +107,6 @@ public class DescriptionActivity extends ActionBarActivity {
         initDB();
         detailsList = new ArrayList<Details>();
         detailsItemList = new ArrayList<DetailsItem>();
-
-
-        mListDescription = (ListView) findViewById(R.id.listDescription);
-        mListDescription.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dialogAlertDelete( parent, position);
-            }
-        });
 
         loadDetails();
     }
@@ -112,7 +143,13 @@ public class DescriptionActivity extends ActionBarActivity {
         }
         if(status){
             adapterDetails = new AdapterDetails(context, detailsItemList);
-            mListDescription.setAdapter(adapterDetails);
+            if(isTablet==false){
+                mListDescription.setAdapter(adapterDetails);
+            }else{
+                mListDescriptionGrid.setAdapter(adapterDetails);
+            }
+
+            //
             adapterDetails.notifyDataSetChanged();
         }else{
             Toast.makeText(context,"De Momento no hay Detalles para este Plato",Toast.LENGTH_LONG).show();
@@ -127,8 +164,8 @@ public class DescriptionActivity extends ActionBarActivity {
 
         AlertDialog alertDialog1 = new AlertDialog.Builder(this).create();
         alertDialog1.setCancelable(false);
-        alertDialog1.setTitle(detailsItem1.getName_details());
-        alertDialog1.setMessage(detailsItem1.getDescription());
+        alertDialog1.setTitle("Su Orden Sera");
+        alertDialog1.setMessage(detailsItem1.getName_details() + "\n\n" + detailsItem1.getDescription());
         alertDialog1.setIcon(R.mipmap.ic_launcher);
         alertDialog1.setButton("Accept", new DialogInterface.OnClickListener() {
 
@@ -145,26 +182,6 @@ public class DescriptionActivity extends ActionBarActivity {
             }
         });
         alertDialog1.show();
-
-
-
-//        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//        builder.setTitle(detailsItem1.getName_details());
-//        builder.setMessage(detailsItem1.getDescription());
-//        builder.setCancelable(false);
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//            }
-//        });
-//        builder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(context,"Su Orden esta en Proceso",Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        builder.show();
     }
 
     @Override
@@ -193,5 +210,28 @@ public class DescriptionActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean isTabletDevice(Context activityContext) {
+        boolean device_large = ((activityContext.getResources().getConfiguration().screenLayout &
+                Configuration.SCREENLAYOUT_SIZE_MASK) ==
+                Configuration.SCREENLAYOUT_SIZE_LARGE);
+
+        if (device_large) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            //         Activity activity = (Activity) context;
+            this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+            if (metrics.densityDpi == DisplayMetrics.DENSITY_DEFAULT
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_HIGH
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_MEDIUM
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_TV
+                    || metrics.densityDpi == DisplayMetrics.DENSITY_XHIGH) {
+                //    AppInstance.getLogger().logD("DeviceHelper","IsTabletDevice-True");
+                return true;
+            }
+        }
+        //  AppInstance.getLogger().logD("DeviceHelper","IsTabletDevice-False");
+        return false;
     }
 }
